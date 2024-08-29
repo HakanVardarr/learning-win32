@@ -44,8 +44,11 @@ impl Process {
             return Err(WinApiError::ProcessError(ProcessError::ReadName));
         }
 
-        String::from_utf8(process_name)
-            .map_err(|_| WinApiError::ProcessError(ProcessError::ReadName))
+        let process_name = String::from_utf8(process_name)
+            .map_err(|_| WinApiError::ProcessError(ProcessError::ReadName))?;
+
+        self.process_name = Some(process_name.clone());
+        return Ok(process_name);
     }
 }
 
