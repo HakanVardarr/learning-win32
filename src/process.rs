@@ -67,7 +67,7 @@ impl Process {
         return self.process_id;
     }
 
-    pub fn terminate(&self) -> Result<(), WinApiError> {
+    pub fn terminate(&mut self) -> Result<(), WinApiError> {
         self.check_terminated()?;
 
         let mut exit_code: DWORD = 0;
@@ -77,6 +77,7 @@ impl Process {
                 .map_err(|_| WinApiError::ProcessError(get_last_error()))?;
             TerminateProcess(self.process_handle, exit_code)
                 .map_err(|_| WinApiError::ProcessError(get_last_error()))?;
+            self.is_terminated = true;
         })
     }
 
