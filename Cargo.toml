@@ -3,9 +3,10 @@ name = "learning-win32"
 version = "0.1.0"
 edition = "2021"
 
+
 [dependencies]
-
-
-[dependencies.windows]
-version = "0.58"
-features = ["Win32_System_ProcessStatus", "Win32_System_Threading"]
+thiserror = "1.0.63"
+windows = { version = "0.58", features = [
+    "Win32_System_ProcessStatus",
+    "Win32_System_Threading",
+] }
