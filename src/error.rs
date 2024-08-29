@@ -3,13 +3,9 @@ use thiserror::Error;
 #[derive(Debug, Error)]
 pub enum WinApiError {
     #[error("[ERROR]: Process Error: {0}")]
-    ProcessError(ProcessError),
+    ProcessError(String),
 }
 
-#[derive(Debug, Error)]
-pub enum ProcessError {
-    #[error("Failed to open process")]
-    OpenProcess,
-    #[error("Failed to read the name of process")]
-    ReadName,
+pub(crate) fn get_last_error() -> String {
+    std::io::Error::last_os_error().to_string()
 }
